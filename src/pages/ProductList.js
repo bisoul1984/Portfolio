@@ -1,5 +1,6 @@
 // Importing the useState hook from React to manage state in the component
 import { useState } from "react"
+import { AddProductForm1 } from "../components/forms"
 
 // Initial products array containing objects with name, brand, category, unit price, and quantity
 let initialProducts = [
@@ -19,9 +20,14 @@ export default function ProductList() {
         newProducts.splice(index, 1)
         setProducts(newProducts)
     }
+    function addProduct(product) {
+        
+        setProducts([...products, product])
+    }
     // JSX rendering a list of ProductItem components by mapping over the products array
     return (
         <div className="container py-5">
+            <AddProductForm1 addProduct={addProduct}/>
             {
                 products.map((product, idx) => {
                     return (
