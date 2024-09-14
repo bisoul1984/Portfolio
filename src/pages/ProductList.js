@@ -1,5 +1,5 @@
 // Importing the useState hook from React to manage state in the component
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { AddProductForm2 } from "../components/forms"
 
 // Initial products array containing objects with name, brand, category, unit price, and quantity
@@ -11,14 +11,20 @@ let initialProducts = [
 
 // Defining the ProductList component
 export default function ProductList() {
-    let storedProducts = []
+    
+    // useState hook to set and manage products state initialized with the initialProducts array
+    let [products, setProducts] = useState([])
+
+    function initializeProductList() {
+        let storedProducts = []
     let storedProductsStr = localStorage.getItem("productList")
     if (storedProductsStr) {
         storedProducts = JSON.parse(storedProductsStr)
     }
     console.log(Date())
-    // useState hook to set and manage products state initialized with the initialProducts array
-    let [products, setProducts] = useState(storedProducts)
+    setProducts(storedProducts)
+    }
+    useEffect(() => initializeProductList(), [])
 
     // Function to delete a product from the products list based on the index
     function deleteProduct(index) {
