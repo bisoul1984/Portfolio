@@ -24,4 +24,11 @@ root.render(
   </React.StrictMode>
 );
 
+//local storage
+localStorage.setItem("myFirstKey", "This is the value")
+localStorage.setItem("userName", "Bisrat Tadesse")
+localStorage.setItem("myFirstInteger", 7)
+
  
+let myFirstKey = localStorage.getItem("myFirstKey")
+console.log("myFirstKey:", myFirstKey)

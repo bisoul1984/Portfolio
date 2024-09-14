@@ -1,6 +1,6 @@
 // Importing the useState hook from React to manage state in the component
 import { useState } from "react"
-import { AddProductForm1 } from "../components/forms"
+import { AddProductForm2 } from "../components/forms"
 
 // Initial products array containing objects with name, brand, category, unit price, and quantity
 let initialProducts = [
@@ -11,23 +11,31 @@ let initialProducts = [
 
 // Defining the ProductList component
 export default function ProductList() {
+    let storedProducts = []
+    let storedProductsStr = localStorage.getItem("productList")
+    if (storedProductsStr) {
+        storedProducts = JSON.parse(storedProductsStr)
+    }
+    console.log(Date())
     // useState hook to set and manage products state initialized with the initialProducts array
-    let [products, setProducts] = useState(initialProducts)
+    let [products, setProducts] = useState(storedProducts)
 
     // Function to delete a product from the products list based on the index
     function deleteProduct(index) {
         let newProducts = [...products]
         newProducts.splice(index, 1)
         setProducts(newProducts)
+        localStorage.setItem("productList", JSON.stringify(newProducts))
     }
     function addProduct(product) {
-        
-        setProducts([...products, product])
+        let newProducts = [...products, product]
+        setProducts(newProducts)
+        localStorage.setItem("productList", JSON.stringify(newProducts))
     }
     // JSX rendering a list of ProductItem components by mapping over the products array
     return (
         <div className="container py-5">
-            <AddProductForm1 addProduct={addProduct}/>
+            <AddProductForm2 addProduct={addProduct}/>
             {
                 products.map((product, idx) => {
                     return (

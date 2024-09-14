@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 export function AddProductForm1(props) {
     function handleSubmit(event) {
         event.preventDefault();
@@ -55,5 +57,66 @@ export function AddProductForm1(props) {
                 <button type="submit" className="btn btn-primary">Add</button>
             </div>
         </form>
+    )
+}
+
+export function AddProductForm2(props) {
+    let [name, setName] = useState("")
+    let [brand, setBrand] = useState("")
+    let [category, setCategory] = useState("")
+    let [unitPrice, setUnitPrice] = useState("")
+    let [quantity, setQuantity] = useState(1)
+
+
+    function handleSubmit(event) {
+        event.preventDefault()
+
+        if (!name || !brand || !category || !unitPrice || !quantity) {
+            alert("Please fill all the fields")
+            return
+        }
+
+        let product = {name, brand, category, unitPrice, quantity}
+
+        //reset the form
+        setName("")
+        setBrand("")
+        setCategory("")
+        setUnitPrice("")
+        setQuantity(1)
+
+        props.addProduct(product)
+    }
+    return (
+        <form className="row mb-5 g-3" onSubmit={(event) => handleSubmit(event)}>
+        <div className="col-md-4">
+            <label className="form-label">Name</label>
+            <input className="form-control" name="name" 
+            value={name} onChange={(event) => setName(event.target.value)}/>
+        </div>
+        <div className="col-md-4">
+            <label className="form-label">Brand</label>
+            <input className="form-control" name="brand"
+                value={brand} onChange={(event) => setBrand(event.target.value)}/>
+        </div>
+        <div className="col-md-4">
+            <label className="form-label">Category</label>
+            <input className="form-control" name="category" 
+                value={category} onChange={(event) => setCategory(event.target.value)}/>
+        </div>
+        <div className="col-md-4">
+            <label className="form-label">Unit Price</label>
+            <input className="form-control" name="unitPrice"
+                value={unitPrice} onChange={(event) => setUnitPrice(event.target.value)} />
+        </div>
+        <div className="col-md-4">
+            <label className="form-label">Quantity</label>
+            <input className="form-control" name="quantity" 
+                value={quantity} onChange={(event) => setQuantity(event.target.value)} />
+        </div>
+        <div className="col-md-12">
+            <button type="submit" className="btn btn-primary">Add</button>
+        </div>
+    </form>  
     )
 }
