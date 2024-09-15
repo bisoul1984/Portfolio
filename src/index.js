@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Navbar, Footer } from './components/layout';
+import Home from './pages/Home';
+
 
 import Container from './components/Container';
 import ProductList from './pages/ProductList';
@@ -10,7 +12,8 @@ import ProductList from './pages/ProductList';
   return (
     <>
       <Navbar />
-      <ProductList />
+      <Home />
+      {/* <ProductList /> */}
       
       <Footer />
     </>
