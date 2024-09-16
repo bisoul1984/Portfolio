@@ -20,6 +20,7 @@ import NotFound from './pages/NotFound';
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/admin/products" element={<ProductList />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
