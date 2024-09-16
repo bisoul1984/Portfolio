@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 // Importing the useState hook from React to manage state in the component
 import { useEffect, useState } from "react"
 import { AddProductForm2 } from "../components/forms"
