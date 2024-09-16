@@ -1,6 +1,7 @@
 {
     "extends": [
-      "react-app"
+      "react-app",
+      "plugin:react/recommended"
     ],
     "rules": {
       "react/react-in-jsx-scope": "off",
