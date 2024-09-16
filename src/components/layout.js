@@ -1,3 +1,6 @@
+import React from 'react';
+
+
 export function Navbar() {
     return (
       <nav className="navbar navbar-expand-lg bg-white border-bottom box-shadow">

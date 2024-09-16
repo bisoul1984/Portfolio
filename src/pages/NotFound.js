@@ -1,10 +1,10 @@
 import React from 'react';
 
 
-export default function Home() {
+export default function NotFound() {
     return (
         <div className="container my-4">
-            <h2>Welcome to Eshop</h2>
+            <h2>Page Not Found</h2>
         </div>
     )
 }

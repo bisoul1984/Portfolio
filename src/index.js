@@ -6,17 +6,22 @@ import Home from './pages/Home';
 
 import Container from './components/Container';
 import ProductList from './pages/ProductList';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Contact from './pages/Contact';
+import NotFound from './pages/NotFound';
 
 
  function App() {
   return (
-    <>
+    <BrowserRouter>
       <Navbar />
-      <Home />
-      {/* <ProductList /> */}
-      
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
       <Footer />
-    </>
+    </BrowserRouter>
   )
  }
 

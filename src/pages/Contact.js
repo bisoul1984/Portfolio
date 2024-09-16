@@ -1,10 +1,9 @@
 import React from 'react';
 
-
-export default function Home() {
+export default function Contact() {
     return (
         <div className="container my-4">
-            <h2>Welcome to Eshop</h2>
+            <h2>Contact Us</h2>
         </div>
     )
 }
