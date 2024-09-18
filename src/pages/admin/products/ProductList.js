@@ -6,10 +6,23 @@ import { useEffect } from 'react';
 export default function ProductList() {
     const [products, setProducts] = useState([])
 
+     // pagination functionality
+     const [currentPage, setCurrentPage] = useState(1)
+     const [totalPages, setTotalPages] = useState(1)
+     const pageSize = 5 
+    
+
     function getProducts() {
-        fetch("http://localhost:4000/products?_sort=idviews&_order=desc")
+        let url = "http://localhost:4000/products?_sort=id&_order=asc&_page=" + currentPage + "&_limit=" + pageSize
+        console.log("url=" + url)
+        fetch(url)
         .then(response =>{
             if (response.ok) {
+                let totalCount = response.headers.get('X-Total-Count')
+                console.log("X-Total-Count:" + totalCount)
+                let pages = Math.ceil(totalCount / pageSize)
+                console.log("Total Pages:" + pages)
+                setTotalPages(pages)
                 return response.json()
             }
             throw new Error()
@@ -23,7 +36,7 @@ export default function ProductList() {
         })
     }
 
-    useEffect(getProducts, [] )
+    useEffect(getProducts, [currentPage] )
 
     function deleteProduct(id) {
         console.log(`Deleting product with ID: ${id}`);
@@ -42,6 +55,22 @@ export default function ProductList() {
             alert("unable to delete the product")
         })
     }
+    //pagination functionality
+    let paginationButtons = []
+    for (let i = 1; i <= totalPages; i++) {
+        paginationButtons.push(
+            <li className={i === currentPage ? "page-item active" : "page-item"} key={i}>
+                <a className="page-link" href={"?page=" + i}
+                    onClick={event => {
+                        event.preventDefault()
+
+                        setCurrentPage(i)
+                    }}
+                >{i}</a>
+            </li>
+        )
+    }
+
 
     return (
         <div className="container my-4">
@@ -98,6 +127,7 @@ export default function ProductList() {
                     }
                 </tbody>
             </table>
+            <ul className="pagination">{paginationButtons}</ul>
 
         </div>
     )
