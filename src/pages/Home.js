@@ -4,12 +4,20 @@ export default function Home() {
 
     const [products, setProducts] = useState([])
 
+    // pagination functionality
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
+    const pageSize = 8
+
     function getProducts() {
-        let url = "http://localhost:4000/products?_sort=id&_order=desc"
+        let url = "http://localhost:4000/products?_sort=id&_order=desc&_page=" + currentPage + "&_limit=" + pageSize
         console.log("url=" + url)
         fetch(url)
         .then(response =>{
             if (response.ok) {
+                let totalCount = response.headers.get('X-Total-Count')
+                let pages = Math.ceil(totalCount / pageSize)
+                setTotalPages(pages)
                 return response.json()
             }
             throw new Error()
@@ -22,7 +30,22 @@ export default function Home() {
             alert("Unable to get the data")
         })
     }
-    useEffect(getProducts, [])
+    useEffect(getProducts, [currentPage])
+    //pagination functionality
+    let paginationButtons = []
+    for (let i = 1; i <= totalPages; i++) {
+        paginationButtons.push(
+            <li className={i === currentPage ? "page-item active" : "page-item"} key={i}>
+                <a className="page-link" href={"?page=" + i}
+                    onClick={event => {
+                        event.preventDefault()
+
+                        setCurrentPage(i)
+                    }}
+                >{i}</a>
+            </li>
+        )
+    }
     return (
         <>
             <div style={{ backgroundColor: "#1D405C", minHeight: "200px" }}>
@@ -84,6 +107,7 @@ export default function Home() {
                             })
                         }
                     </div>
+                    <ul className="pagination">{paginationButtons}</ul>
                 </div>
             </div>
         </>
