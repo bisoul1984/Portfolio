@@ -9,8 +9,18 @@ export default function Home() {
     const [totalPages, setTotalPages] = useState(1)
     const pageSize = 8
 
+    // filter functionality
+    const [filterParams, setFilterParams] = useState({ brand: "", category: "" })
+
     function getProducts() {
         let url = "http://localhost:4000/products?_sort=id&_order=desc&_page=" + currentPage + "&_limit=" + pageSize
+        if (filterParams.brand) {
+            url = url + "&brand=" + filterParams.brand
+        }
+        if (filterParams.category) {
+            url = url + "&category=" + filterParams.category
+        }
+
         console.log("url=" + url)
         fetch(url)
         .then(response =>{
@@ -30,7 +40,7 @@ export default function Home() {
             alert("Unable to get the data")
         })
     }
-    useEffect(getProducts, [currentPage])
+    useEffect(getProducts, [currentPage, filterParams])
     //pagination functionality
     let paginationButtons = []
     for (let i = 1; i <= totalPages; i++) {
@@ -45,6 +55,17 @@ export default function Home() {
                 >{i}</a>
             </li>
         )
+    }
+    // filter functionality
+    function handleBrandFilter(event) {
+        let brand = event.target.value
+        setFilterParams({ ...filterParams, brand: brand })
+        setCurrentPage(1)
+    }
+    function handleCategoryFilter(event) {
+        let category = event.target.value
+        setFilterParams({ ...filterParams, category: category })
+        setCurrentPage(1)
     }
     return (
         <>
@@ -69,7 +90,7 @@ export default function Home() {
                             <h4>Products</h4>
                         </div>
                         <div className="col-md-2">
-                            <select className="form-select">
+                            <select className="form-select" onChange={handleBrandFilter}>
                                 <option value="">All Brands</option>
                                 <option value="Samsung">Samsung</option>
                                 <option value="Apple">Apple</option>
@@ -78,7 +99,7 @@ export default function Home() {
                             </select>
                         </div>
                         <div className="col-md-2">
-                            <select className="form-select">
+                            <select className="form-select" onChange={handleCategoryFilter}>
                                 <option value="">All Categories</option>
                                 <option value="Phones">Phones</option>
                                 <option value="Computers">Computers</option>
