@@ -15,6 +15,7 @@ export default function ProductList() {
             throw new Error()
         })
         .then(data => {
+            console.log("Fetched data:", data); // Check if data is logged
             setProducts(data)
         })
         .catch(error => {
@@ -63,7 +64,7 @@ export default function ProductList() {
                                     <td>{product.price}$</td>
                                     <td><img src={"http://localhost:4000/images/" + product.imageFilename}
                                         width="100" alt="..."/></td>
-                                    <td>{product.createdAt.slice(0, 10)}</td>
+                                    <td>{product.createdAt ? product.createdAt.slice(0, 10) : "N/A"}</td>
                                     <td style={{width: "10px", whiteSpace: "nowrap"}}>
                                         <Link className='btn btn-primary btn-sm me-1'
                                             to={"/admin/products/edit/" + product.id}>Edit</Link>
