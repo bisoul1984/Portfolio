@@ -14,6 +14,9 @@ export default function ProductList() {
      // search functionality
     const [search, setSearch] = useState("")
 
+    // sort functionality
+   // const [sortColumn, setSortColumn] = useState({ column: "id", orderBy: "desc" })
+
     
 
     function getProducts() {
@@ -83,6 +86,20 @@ export default function ProductList() {
         setSearch(text)
         setCurrentPage(1)
     }
+
+    // sort functionality
+    // function sortTable(column) {
+    //     let orderBy = "desc"
+
+    //     if (column === sortColumn.column) {
+    //         // reverse orderBy
+    //         if (sortColumn.orderBy === "asc") orderBy = "desc"
+    //         else orderBy = "asc"
+    //     }
+
+    //     setSortColumn({ column: column, orderBy: orderBy })
+    // }
+
 
     return (
         <div className="container my-4">
