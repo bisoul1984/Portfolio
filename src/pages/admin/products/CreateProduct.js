@@ -1,7 +1,9 @@
 import { Link, useNavigate} from "react-router-dom";
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function CreateProduct() {
+
+    const [validationErrors, setValidationErrors] = useState({})
     const navigate = useNavigate()
 
     async function handleSubmit(event) {
@@ -29,7 +31,7 @@ export default function CreateProduct() {
                 navigate("/admin/products")
             }
             else if (response.status === 400) {
-                alert("Validation errors")
+                setValidationErrors(data)
             }
             
             else {
@@ -51,14 +53,14 @@ export default function CreateProduct() {
                             <label className="col-sm-4 col-form-label">Name</label>
                             <div className="col-sm-8">
                                 <input className="form-control" name="name" />
-                                <span className="text-danger"></span>
+                                <span className="text-danger">{validationErrors.name}</span>
                             </div>
                         </div>
                         <div className="row mb-3">
                             <label className="col-sm-4 col-form-label">Brand</label>
                             <div className="col-sm-8">
                                 <input className="form-control" name="brand" />
-                                <span className="text-danger"></span>
+                                <span className="text-danger">{validationErrors.brand}</span>
                             </div>
                         </div>
                         <div className="row mb-3">
@@ -72,28 +74,28 @@ export default function CreateProduct() {
                                     <option value='Printers'>Printers</option>
                                     <option value='Cameras'>Cameras</option>
                                 </select>
-                                <span className="text-danger"></span>
+                                <span className="text-danger">{validationErrors.category}</span>
                             </div>
                         </div>
                         <div className="row mb-3">
                             <label className="col-sm-4 col-form-label">Price</label>
                             <div className="col-sm-8">
                                 <input className="form-control" name="price" type="number" step="0.01" min="1" />
-                                <span className="text-danger"></span>
+                                <span className="text-danger">{validationErrors.price}</span>
                             </div>
                         </div>
                         <div className="row mb-3">
                             <label className="col-sm-4 col-form-label">Description</label>
                             <div className="col-sm-8">
                                 <textarea className="form-control" name="description" rows="4" />
-                                <span className="text-danger"></span>
+                                <span className="text-danger">{validationErrors.description}</span>
                             </div>
                         </div>
                         <div className="row mb-3">
                             <label className="col-sm-4 col-form-label">Image</label>
                             <div className="col-sm-8">
                                 <input className="form-control" type="file" name="image" />
-                                <span className="text-danger"></span>
+                                <span className="text-danger">{validationErrors.image}</span>
                             </div>
                         </div>
                         <div className="row">
