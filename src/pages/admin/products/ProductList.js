@@ -25,6 +25,24 @@ export default function ProductList() {
 
     useEffect(getProducts, [] )
 
+    function deleteProduct(id) {
+        console.log(`Deleting product with ID: ${id}`);
+        fetch("http://localhost:4000/products/" + id, {
+            method: "DELETE"
+        })
+        .then(response => {
+            console.log("Delete response:", response);
+            if (!response.ok) {
+                throw new Error()
+            }
+            getProducts()
+        })
+        .catch(error => {
+            console.error("Delete error:", error); // Log the error
+            alert("unable to delete the product")
+        })
+    }
+
     return (
         <div className="container my-4">
             <h2 className="text-center mb-4">Products</h2>
@@ -62,13 +80,17 @@ export default function ProductList() {
                                     <td>{product.brand}</td>
                                     <td>{product.category}</td>
                                     <td>{product.price}$</td>
-                                    <td><img src={"http://localhost:4000/images/" + product.imageFilename}
-                                        width="100" alt="..."/></td>
+                                    <td><img
+                                            src={product.imageFilename 
+                                                ? `http://localhost:4000/images/${product.imageFilename}`
+                                                : '/path/to/fallback-image.jpg'}  // Fallback for undefined image
+                                            width="100" alt={product.name || 'Product Image'} /></td>
                                     <td>{product.createdAt ? product.createdAt.slice(0, 10) : "N/A"}</td>
                                     <td style={{width: "10px", whiteSpace: "nowrap"}}>
                                         <Link className='btn btn-primary btn-sm me-1'
                                             to={"/admin/products/edit/" + product.id}>Edit</Link>
-                                        <button type="button" className="btn btn-danger btn-sm">Delete</button>
+                                        <button type="button" className="btn btn-danger btn-sm"
+                                            onClick={() => deleteProduct(product.id)}>Delete</button>
                                     </td>
                                 </tr>
                             )

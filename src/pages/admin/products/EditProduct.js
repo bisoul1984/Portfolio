@@ -66,9 +66,7 @@ export default function EditProduct() {
         }
 
     }
-    if (!product) {
-        return <div>Loading...</div>;  // Show loading state while fetching data
-    }
+    
     return (
         <div className="container my-4">
             <div className="row">
