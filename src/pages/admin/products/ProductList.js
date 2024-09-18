@@ -10,10 +10,14 @@ export default function ProductList() {
      const [currentPage, setCurrentPage] = useState(1)
      const [totalPages, setTotalPages] = useState(1)
      const pageSize = 5 
+
+     // search functionality
+    const [search, setSearch] = useState("")
+
     
 
     function getProducts() {
-        let url = "http://localhost:4000/products?_sort=id&_order=asc&_page=" + currentPage + "&_limit=" + pageSize
+        let url = "http://localhost:4000/products?_sort=id&_order=asc&_page=" + currentPage + "&_limit=" + pageSize + "&q=" + search
         console.log("url=" + url)
         fetch(url)
         .then(response =>{
@@ -36,7 +40,7 @@ export default function ProductList() {
         })
     }
 
-    useEffect(getProducts, [currentPage] )
+    useEffect(getProducts, [currentPage, search] )
 
     function deleteProduct(id) {
         console.log(`Deleting product with ID: ${id}`);
@@ -71,6 +75,14 @@ export default function ProductList() {
         )
     }
 
+    // search functionality
+    function handleSearch(event) {
+        event.preventDefault()
+
+        let text = event.target.search.value
+        setSearch(text)
+        setCurrentPage(1)
+    }
 
     return (
         <div className="container my-4">
@@ -82,7 +94,10 @@ export default function ProductList() {
                     onClick={getProducts}>Refresh</button>
                 </div>
                 <div className="col">
-
+                <form className="d-flex" onSubmit={handleSearch}>
+                        <input className="form-control me-2" type="search" placeholder="Search" name="search" />
+                        <button className="btn btn-outline-success" type="submit">Search</button>
+                    </form>
                 </div>
             </div>
 
