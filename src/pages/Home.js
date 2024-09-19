@@ -12,14 +12,19 @@ export default function Home() {
     // filter functionality
     const [filterParams, setFilterParams] = useState({ brand: "", category: "" })
 
+    // sort functionality
+    const [sortColumn, setSortColumn] = useState({ column: "id", orderBy: "desc" })
+
+
     function getProducts() {
-        let url = "http://localhost:4000/products?_sort=id&_order=desc&_page=" + currentPage + "&_limit=" + pageSize
+        let url = "http://localhost:4000/products?_page=" + currentPage + "&_limit=" + pageSize
         if (filterParams.brand) {
             url = url + "&brand=" + filterParams.brand
         }
         if (filterParams.category) {
             url = url + "&category=" + filterParams.category
         }
+        url = url + "&_sort=" + sortColumn.column + "&_order=" + sortColumn.orderBy
 
         console.log("url=" + url)
         fetch(url)
@@ -40,7 +45,7 @@ export default function Home() {
             alert("Unable to get the data")
         })
     }
-    useEffect(getProducts, [currentPage, filterParams])
+    useEffect(getProducts, [currentPage, filterParams, sortColumn])
     //pagination functionality
     let paginationButtons = []
     for (let i = 1; i <= totalPages; i++) {
@@ -67,6 +72,15 @@ export default function Home() {
         setFilterParams({ ...filterParams, category: category })
         setCurrentPage(1)
     }
+    //sort functionality
+    function handleSort(event) {
+        let val = event.target.value
+
+        if (val === "0") setSortColumn({ column: "id", orderBy: "desc" })
+            else if (val === "1") setSortColumn({ column: "price", orderBy: "asc" })
+            else if (val === "2") setSortColumn({ column: "price", orderBy: "desc" })
+    }
+
     return (
         <>
             <div style={{ backgroundColor: "#1D405C", minHeight: "200px" }}>
@@ -110,7 +124,7 @@ export default function Home() {
                             </select>
                         </div>
                         <div className="col-md-2">
-                            <select className="form-select">
+                            <select className="form-select" onChange={handleSort}>
                                 <option value="0">Order By Newest</option>
                                 <option value="1">Price: Low to High</option>
                                 <option value="2">Price: High to Low</option>
