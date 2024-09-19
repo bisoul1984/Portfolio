@@ -1,4 +1,30 @@
+import { useParams } from "react-router-dom"
+
 export default function ProductDetails() {
+    const params = useParams()
+    const [product, setProduct] = useState({})
+
+    async function getProductDetails() {
+        try {
+            let response = await fetch("http://localhost:4000/products/" + params.id)
+            let data = await response.json()
+
+            if (response.ok) {
+                setProduct(data)
+            }
+            else {
+                alert("Unable to get the product details")
+            }
+        }
+        catch (error) {
+            alert("Unable to connect to the server")
+        }
+    }
+    useEffect(() => {
+        getProductDetails()
+    }, [])
+
+
     return (
         <div className="container my-4">
         <div className="row">
