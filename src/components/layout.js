@@ -32,6 +32,14 @@ export function Navbar() {
                             </ul>
                         </li>
                     </ul>
+                    <ul className='navbar-nav'>
+                        <li className="nav-item">
+                            <Link className="btn btn-outline-primary me-2" to="/auth/register" role="button">Register</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="btn btn-primary" to="/auth/login" role="button">Login</Link>
+                        </li>
+                    </ul>
                 </div>
             </div>
 </nav>
