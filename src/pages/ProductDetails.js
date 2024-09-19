@@ -1,4 +1,6 @@
 import { useParams } from "react-router-dom"
+import React, { useState, useEffect } from 'react';
+
 
 export default function ProductDetails() {
     const params = useParams()
