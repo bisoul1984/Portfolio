@@ -58,19 +58,19 @@ export default function Register() {
                         <div className="row mb-3">
                             <label className="col-sm-4 col-form-label">First Name *</label>
                             <div className="col-sm-8">
-                                <input className="form-control" name="firstname" />
+                                <input className="form-control" name="firstname" required/>
                             </div>
                         </div>
                         <div className="row mb-3">
                             <label className="col-sm-4 col-form-label">Last Name *</label>
                             <div className="col-sm-8">
-                                <input className="form-control" name="lastname" />
+                                <input className="form-control" name="lastname" required/>
                             </div>
                         </div>
                         <div className="row mb-3">
                             <label className="col-sm-4 col-form-label">Email *</label>
                             <div className="col-sm-8">
-                                <input className="form-control" name="email" />
+                                <input className="form-control" name="email" required/>
                             </div>
                         </div>
                         <div className="row mb-3">
@@ -88,13 +88,13 @@ export default function Register() {
                         <div className="row mb-3">
                             <label className="col-sm-4 col-form-label">Password *</label>
                             <div className="col-sm-8">
-                                <input className="form-control" type="password" name="password" />
+                                <input className="form-control" type="password" name="password" required/>
                             </div>
                         </div>
                         <div className="row mb-3">
                             <label className="col-sm-4 col-form-label">Confirm Password *</label>
                             <div className="col-sm-8">
-                                <input className="form-control" type="password" name="confirm_password" />
+                                <input className="form-control" type="password" name="confirm_password" required/>
                             </div>
                         </div>
                         <div className="row">
