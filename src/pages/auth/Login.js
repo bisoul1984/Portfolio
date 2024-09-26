@@ -27,13 +27,7 @@ export default function Login() {
                 body: JSON.stringify(credentials)
             });
 
-            let data;
-            try {
-                data = await response.json();
-            } catch (error) {
-                alert("Error parsing server response");
-                return;
-            }
+            const data = await response.json()
 
             if (response.ok) {
                 console.log("server response: ", data);
@@ -41,7 +35,7 @@ export default function Login() {
                 // redirect the user
                 navigate("/");
             } else {
-                alert("Unable to login: " + data);
+                alert("Unable to login: " + JSON.stringify(data));
             }
         } catch (error) {
             alert("Unable to connect to the server");

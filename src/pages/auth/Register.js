@@ -32,6 +32,8 @@ export default function Register() {
             })
 
             const data = await response.json()
+            console.log("Response status:", response.status)
+            console.log("Response data:", data)
 
             if (response.ok) {
                 console.log("server response: ", data)
@@ -40,7 +42,7 @@ export default function Register() {
                 navigate("/")
             }
             else {
-                alert("Unable to register: " + data)
+                alert("Unable to register: " + JSON.stringify(data))
             }
         }
         catch (error) {
